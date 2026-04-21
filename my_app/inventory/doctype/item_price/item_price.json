@@ -1,0 +1,12 @@
+{
+    "name": "Item Price",
+    "doctype": "DocType",
+    "module": "Inventory",
+    "istable": 1,
+    "fields": [
+        {"fieldname": "item_code", "fieldtype": "Link", "options": "Item", "label": "Item Code"},
+        {"fieldname": "price_list", "fieldtype": "Link", "options": "Price List", "label": "Price List"},
+        {"fieldname": "price_list_rate", "fieldtype": "Currency", "label": "Rate"},
+        {"fieldname": "currency", "fieldtype": "Link", "options": "Currency", "label": "Currency"}
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "name": "Custom Lead",
+    "doctype": "DocType",
+    "module": "CRM",
+    "custom": 1,
+    "fields": [
+        {"fieldname": "lead_name", "fieldtype": "Data", "label": "Lead Name", "reqd": 1},
+        {"fieldname": "email", "fieldtype": "Data", "label": "Email", "options": "Email"},
+        {"fieldname": "company", "fieldtype": "Link", "options": "Company", "label": "Company"},
+        {"fieldname": "status", "fieldtype": "Select", "options": "Open\nConverted\nLost", "label": "Status"},
+        {"fieldname": "custom_currency", "fieldtype": "Link", "options": "Currency", "label": "Currency"},
+        {"fieldname": "custom_last_updated", "fieldtype": "Datetime", "label": "Last Updated"}
+    ]
+}
