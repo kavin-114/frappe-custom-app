@@ -1,0 +1,11 @@
+{
+  "doctype": "DocType",
+  "name": "Recursive Doc",
+  "module": "My App",
+  "autoname": "field:code",
+  "fields": [
+    {"fieldname": "code", "fieldtype": "Data", "label": "Code"},
+    {"fieldname": "total", "fieldtype": "Float", "label": "Total"},
+    {"fieldname": "custom_flag", "fieldtype": "Check", "label": "Flag"}
+  ]
+}

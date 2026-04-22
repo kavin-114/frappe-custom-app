@@ -19,12 +19,38 @@ doc_events = {
         "validate": "my_app.crm.hooks.validate_custom_lead",
         "on_update": "my_app.crm.hooks.on_update_custom_lead",
     },
+    # Phase 2 test: recursive-doc-event-trigger (lifecycle + doc_events on same DocType)
+    "Recursive Doc": {
+        "on_update": "my_app.events.recursive_doc_events.on_update",
+    },
+    # Phase 2 test: core-doc-event-perf-bottleneck (high-traffic DocType + DB in loop)
+    "Sales Invoice": {
+        "on_submit": "my_app.events.sales_invoice_events.on_submit",
+    },
 }
 
 # Full controller override — dangerous
 override_doctype_class = {
     "Item": "my_app.overrides.item_controller.CustomItem",
+    # Phase 1 test: core-ledger-override (critical)
+    "GL Entry": "my_app.overrides.gl_entry.CustomGLEntry",
+    # Phase 1 test: core-controller-override (subclasses AccountsController)
+    "Sales Invoice": "my_app.overrides.sales_invoice_ctrl.CustomSalesInvoice",
 }
+
+# Phase 1 test: hook-permission-query-wrong-sig (target has 2 args, expected 1)
+permission_query_conditions = {
+    "Sales Invoice": "my_app.permissions.sales_invoice_query",
+}
+
+# Phase 1 test: hook-override-whitelisted-missing-target (target doesn't exist)
+override_whitelisted_methods = {
+    "frappe.desk.reportview.get_list": "my_app.api.missing.custom_get_list",
+}
+
+# Phase 1 test: hook-install-migrate-no-error-handling (targets lack try/except)
+before_install = "my_app.install_migrate.before_install"
+after_migrate = "my_app.install_migrate.after_migrate"
 
 # Scheduler events
 scheduler_events = {
@@ -48,5 +74,5 @@ scheduler_events = {
     ],
 }
 
-# Fixtures
-fixtures = ["Custom Field", "Property Setter"]
+# Phase 1 test: hook-fixtures-mismatch — fixture JSON files exist on disk
+# (my_app/fixtures/*.json) but the `fixtures = [...]` declaration is missing.

@@ -55,3 +55,10 @@ def get_aging_report(company):
             "credit_limit": customer_doc.credit_limit,
         })
     return result
+
+
+def internal_helper():
+    """Phase 4 test: frappe-call-not-whitelisted
+    Defined at module scope but without @frappe.whitelist(). JS calls to this
+    path get 'Not permitted' at runtime."""
+    return {"internal": True}

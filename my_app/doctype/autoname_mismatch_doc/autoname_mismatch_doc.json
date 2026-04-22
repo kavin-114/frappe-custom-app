@@ -1,0 +1,9 @@
+{
+  "doctype": "DocType",
+  "name": "Autoname Mismatch Doc",
+  "module": "My App",
+  "autoname": "naming_series:",
+  "fields": [
+    {"fieldname": "title", "fieldtype": "Data", "label": "Title"}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "doctype": "DocType",
+  "name": "Creation Doc",
+  "module": "My App",
+  "autoname": "hash",
+  "fields": [
+    {"fieldname": "subject", "fieldtype": "Data", "label": "Subject"}
+  ]
+}

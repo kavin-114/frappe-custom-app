@@ -1,0 +1,11 @@
+{
+  "doctype": "DocType",
+  "name": "Link Missing Doc",
+  "module": "My App",
+  "autoname": "hash",
+  "fields": [
+    {"fieldname": "customer", "fieldtype": "Link"},
+    {"fieldname": "items", "fieldtype": "Table"},
+    {"fieldname": "ref_type", "fieldtype": "Dynamic Link"}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "doctype": "DocType",
+  "name": "Reserved Doc",
+  "module": "My App",
+  "autoname": "hash",
+  "fields": [
+    {"fieldname": "docstatus", "fieldtype": "Int", "label": "Doc Status"},
+    {"fieldname": "owner", "fieldtype": "Data", "label": "Owner"}
+  ]
+}

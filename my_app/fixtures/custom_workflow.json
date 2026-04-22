@@ -1,0 +1,9 @@
+[
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice",
+    "fieldname": "custom_audit_flag",
+    "fieldtype": "Check",
+    "label": "Custom Audit Flag"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "doctype": "DocType",
+  "name": "Fieldcase Doc",
+  "module": "My App",
+  "autoname": "hash",
+  "fields": [
+    {"fieldname": "customerName", "fieldtype": "Data", "label": "Customer Name"},
+    {"fieldname": "email-id", "fieldtype": "Data", "label": "Email"},
+    {"fieldname": "status", "fieldtype": "Data", "label": "Status"}
+  ]
+}
