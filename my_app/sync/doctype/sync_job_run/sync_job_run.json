@@ -1,0 +1,17 @@
+{
+    "name": "Sync Job Run",
+    "doctype": "DocType",
+    "module": "Sync",
+    "autoname": "naming_series:",
+    "fields": [
+        {"fieldname": "naming_series", "fieldtype": "Select", "options": "SJR-.YYYY.-.#####", "label": "Series"},
+        {"fieldname": "job_name", "fieldtype": "Data", "label": "Job Name", "in_list_view": 1},
+
+        {"fieldname": "internal_state", "fieldtype": "Data", "label": "Internal State", "search_index": 1},
+        {"fieldname": "attempt_count", "fieldtype": "Int", "label": "Attempt Count", "search_index": 1},
+        {"fieldname": "last_heartbeat_at", "fieldtype": "Datetime", "label": "Last Heartbeat", "search_index": 1},
+
+        {"fieldname": "policy_ref", "fieldtype": "Link", "options": "Policy Document", "label": "Policy"},
+        {"fieldname": "error_message", "fieldtype": "Long Text", "label": "Error"}
+    ]
+}
