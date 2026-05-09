@@ -1,0 +1,20 @@
+{
+    "name": "Customer Support Ticket",
+    "doctype": "DocType",
+    "module": "Support",
+    "autoname": "naming_series:",
+    "fields": [
+        {"fieldname": "naming_series", "fieldtype": "Select", "options": "TKT-.YYYY.-.#####", "label": "Series"},
+        {"fieldname": "subject", "fieldtype": "Data", "label": "Subject", "in_list_view": 1, "reqd": 1},
+
+        {"fieldname": "priority", "fieldtype": "Int", "label": "Priority", "in_list_view": 1},
+        {"fieldname": "status_label", "fieldtype": "Data", "label": "Status", "in_list_view": 1},
+        {"fieldname": "queue_name", "fieldtype": "Data", "label": "Queue"},
+
+        {"fieldname": "customer", "fieldtype": "Link", "options": "Customer", "label": "Customer"},
+        {"fieldname": "description", "fieldtype": "Text Editor", "label": "Description"},
+
+        {"fieldname": "first_responded_at", "fieldtype": "Datetime", "label": "First Responded At"},
+        {"fieldname": "resolved_at", "fieldtype": "Datetime", "label": "Resolved At"}
+    ]
+}

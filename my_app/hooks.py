@@ -60,6 +60,15 @@ scheduler_events = {
     ],
     "hourly": [
         "my_app.tasks.hourly_tasks.process_pending_orders",
+        # Wired up so the get-doc-in-loop critical escalation fixture
+        # (audit_fixtures/save_in_loop_no_events.py) is reachable code,
+        # not dead-code-suppressed by the reachability filter.
+        "my_app.audit_fixtures.save_in_loop_no_events.cleanup_stuck_runs",
+        "my_app.audit_fixtures.save_in_loop_no_events.reset_attempts_on_running_jobs",
+        # Heavy filtering on Customer Support Ticket — reachable so the
+        # missing-index-on-read-heavy-field rule has live evidence.
+        "my_app.audit_fixtures.index_underuse.queue_top_open_tickets",
+        "my_app.audit_fixtures.index_underuse.list_high_priority",
     ],
     "cron": {
         "0 */6 * * *": [
