@@ -83,6 +83,23 @@ scheduler_events = {
         "my_app.audit_fixtures.docstatus_manual_write.bulk_force_submit",
         "my_app.audit_fixtures.docstatus_manual_write.stitch_amendment_chain",
         "my_app.audit_fixtures.multi_tenant_filter.daily_stock_summary",
+        # FP regressions for the get-doc-for-field-read analyzer — these
+        # must NOT produce findings once the doc-passed-onward bug is fixed.
+        "my_app.audit_fixtures.regression_get_doc_passed.read_and_forward",
+        "my_app.audit_fixtures.regression_get_doc_passed.read_and_kwarg",
+        "my_app.audit_fixtures.regression_get_doc_passed.read_and_return",
+        "my_app.audit_fixtures.regression_get_doc_passed.read_and_collect",
+        "my_app.audit_fixtures.regression_get_doc_passed.read_and_pack",
+        "my_app.audit_fixtures.regression_get_doc_passed.read_mutate_save_forward",
+        # FP regression: scheduler-missing-function on async def — the
+        # target below exists as `async def`. Current resolver only matches
+        # ast.FunctionDef and reports missing.
+        "my_app.tasks.async_tasks.refresh_async_index",
+        # FP regression: scheduler-missing-function on __init__.py re-export.
+        # The function is defined in tasks/reexport_target.py and re-exported
+        # through tasks/__init__.py. The shortened dotted path below lands on
+        # __init__.py; resolver sees only ImportFrom and reports missing.
+        "my_app.tasks.reexported_scheduled_task",
     ],
     "cron": {
         "0 */6 * * *": [
