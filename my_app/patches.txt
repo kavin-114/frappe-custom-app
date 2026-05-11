@@ -1,0 +1,9 @@
+[pre_model_sync]
+my_app.patches.v1_0.add_custom_field_to_sales_invoice
+my_app.patches.v1_0.backfill_customer_tier
+
+[post_model_sync]
+# Proposed rule: patch-missing-target — module path does not exist.
+my_app.patches.v1_0.does_not_exist
+# Proposed rule: patch-duplicate-entry — same patch listed twice.
+my_app.patches.v1_0.add_custom_field_to_sales_invoice
