@@ -54,10 +54,11 @@ A realistic Frappe custom app with **intentional vulnerabilities and anti-patter
 - Hardcoded values: company name, warehouse
 - Monolithic hooks.py with too many overrides
 
-### Best-practice fixtures (`audit_fixtures/`, proposed rules)
+### Best-practice fixtures (`audit_fixtures/`, `patches/`, `report/`, proposed rules)
 
 These exercise rule IDs that don't ship yet — each file's docstring names
-the proposed rule and the expected verdict.
+the proposed rule and the expected verdict. Bad and good counter-examples
+live in the same file where applicable.
 
 - `save_then_pass_doc.py` — caller saves a doc, then passes it on. Good
   baseline plus three bad variants: post-save `frappe.db.set_value` (stale
@@ -74,6 +75,22 @@ the proposed rule and the expected verdict.
   inside whitelisted endpoints and inside loops.
 - `path_traversal.py` — `open(user_supplied_path)`, `frappe.get_doc("File", x)`
   without a permission check, `os.system(f"... {user_input}")`.
+- `webhook_signature.py` — webhook endpoints without HMAC verification,
+  `==` comparison instead of `hmac.compare_digest`, signature pulled from
+  attacker-controlled payload.
+- `session_user_trust.py` — `frappe.session.user == "Administrator"`,
+  hard-coded email allowlists, `owner = session.user` filter as auth.
+- `realtime_spam.py` — `frappe.publish_realtime` in a loop, in a lifecycle
+  hook, and with `user=None` (cross-tenant broadcast).
+- `cache_no_invalidation.py` — `frappe.cache().set_value` without TTL,
+  without matching `delete_value` on the writer, and reused keys in a loop.
+- `patches.txt` + `patches/v1_0/` — `add_custom_field_to_sales_invoice.py`
+  is non-idempotent, has no `reload_doc`, no try/except, and is listed twice
+  in `patches.txt`; `backfill_customer_tier.py` is the good counter-example.
+  The `patches.txt` also references a missing module path.
+- `report/sales_summary/sales_summary.py` — Script Report with SQL injection
+  via filter interpolation, no permission check, and `get_all` (which
+  bypasses doctype perms). `execute_safe` is the parameterised counterpart.
 
 ## Usage
 
