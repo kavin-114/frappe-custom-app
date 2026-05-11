@@ -27,6 +27,10 @@ doc_events = {
     "Sales Invoice": {
         "on_submit": "my_app.events.sales_invoice_events.on_submit",
     },
+    # Tier-2 fixture: realtime-publish-in-lifecycle on a high-traffic doctype.
+    "Item": {
+        "validate": "my_app.audit_fixtures.realtime_spam.notify_on_validate",
+    },
 }
 
 # Full controller override — dangerous
@@ -69,6 +73,11 @@ scheduler_events = {
         # missing-index-on-read-heavy-field rule has live evidence.
         "my_app.audit_fixtures.index_underuse.queue_top_open_tickets",
         "my_app.audit_fixtures.index_underuse.list_high_priority",
+        # Tier-2 fixtures — bare-string wiring keeps non-whitelisted bad
+        # cases reachable for the auditor; Frappe never actually calls them
+        # at runtime because they take args.
+        "my_app.audit_fixtures.cache_no_invalidation.get_pricing_for_item",
+        "my_app.audit_fixtures.cache_no_invalidation.get_pricing_safe",
     ],
     "cron": {
         "0 */6 * * *": [
