@@ -54,6 +54,27 @@ A realistic Frappe custom app with **intentional vulnerabilities and anti-patter
 - Hardcoded values: company name, warehouse
 - Monolithic hooks.py with too many overrides
 
+### Best-practice fixtures (`audit_fixtures/`, proposed rules)
+
+These exercise rule IDs that don't ship yet — each file's docstring names
+the proposed rule and the expected verdict.
+
+- `save_then_pass_doc.py` — caller saves a doc, then passes it on. Good
+  baseline plus three bad variants: post-save `frappe.db.set_value` (stale
+  doc), redundant double-save, enqueue with the doc object instead of name.
+- `background_jobs.py` — `enqueue(now=True)`, missing `queue=` / `timeout=`,
+  HTTP/N+1 work that should be enqueued.
+- `jinja_ssti.py` — user input in the template body of `frappe.render_template`;
+  `|safe` filter on user data; user HTML inside Print Format.
+- `multi_tenant_filter.py` — `get_all` / SQL on company-scoped DocTypes
+  (Sales Invoice, GL Entry, Stock Ledger Entry) without a `company=` filter.
+- `docstatus_manual_write.py` — `frappe.db.set_value(..., "docstatus", 1/2)`
+  bypassing `submit()` / `cancel()`; manual `amended_from` stitching.
+- `ignore_permissions_kwarg.py` — `insert/save/delete(ignore_permissions=True)`
+  inside whitelisted endpoints and inside loops.
+- `path_traversal.py` — `open(user_supplied_path)`, `frappe.get_doc("File", x)`
+  without a permission check, `os.system(f"... {user_input}")`.
+
 ## Usage
 
 Upload as a zip or point the auditor at this directory to run a full audit.

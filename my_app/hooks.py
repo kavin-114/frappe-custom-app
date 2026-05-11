@@ -69,6 +69,20 @@ scheduler_events = {
         # missing-index-on-read-heavy-field rule has live evidence.
         "my_app.audit_fixtures.index_underuse.queue_top_open_tickets",
         "my_app.audit_fixtures.index_underuse.list_high_priority",
+        # Best-practice fixtures — wired here purely so the reachability
+        # filter does not strip their critical findings. The dotted path
+        # mention is enough; Frappe never actually calls these because
+        # they require args.
+        "my_app.audit_fixtures.save_then_pass_doc.bad_save_then_set_value",
+        "my_app.audit_fixtures.save_then_pass_doc.bad_save_then_sql_update",
+        "my_app.audit_fixtures.save_then_pass_doc.bad_double_save",
+        "my_app.audit_fixtures.save_then_pass_doc.bad_enqueue_passes_doc",
+        "my_app.audit_fixtures.save_then_pass_doc.good_save_then_read",
+        "my_app.audit_fixtures.docstatus_manual_write.force_submit",
+        "my_app.audit_fixtures.docstatus_manual_write.force_cancel_via_sql",
+        "my_app.audit_fixtures.docstatus_manual_write.bulk_force_submit",
+        "my_app.audit_fixtures.docstatus_manual_write.stitch_amendment_chain",
+        "my_app.audit_fixtures.multi_tenant_filter.daily_stock_summary",
     ],
     "cron": {
         "0 */6 * * *": [
