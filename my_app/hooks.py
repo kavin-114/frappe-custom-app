@@ -83,6 +83,10 @@ scheduler_events = {
         "my_app.audit_fixtures.docstatus_manual_write.bulk_force_submit",
         "my_app.audit_fixtures.docstatus_manual_write.stitch_amendment_chain",
         "my_app.audit_fixtures.multi_tenant_filter.daily_stock_summary",
+        # Dead-code showcase — entry points for the negative cases. The
+        # positive cases in dead_code_showcase.py must NOT appear here.
+        "my_app.audit_fixtures.dead_code_showcase.caller_for_helper",
+        "my_app.audit_fixtures.dead_code_showcase_importer.run",
     ],
     "cron": {
         "0 */6 * * *": [
