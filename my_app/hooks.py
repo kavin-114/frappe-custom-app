@@ -83,6 +83,11 @@ scheduler_events = {
         "my_app.audit_fixtures.docstatus_manual_write.bulk_force_submit",
         "my_app.audit_fixtures.docstatus_manual_write.stitch_amendment_chain",
         "my_app.audit_fixtures.multi_tenant_filter.daily_stock_summary",
+        # #24 db-update-all info rule — wired so the call sites are
+        # reachable code and the reachability filter doesn't strip them.
+        "my_app.audit_fixtures.db_update_all_usage.mark_stale_items_inactive",
+        "my_app.audit_fixtures.db_update_all_usage.reset_sync_pending_for_all_customers",
+        "my_app.audit_fixtures.db_update_all_usage.zero_out_balance_via_update_all",
     ],
     "cron": {
         "0 */6 * * *": [
