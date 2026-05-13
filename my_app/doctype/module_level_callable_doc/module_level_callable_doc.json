@@ -1,0 +1,9 @@
+{
+  "doctype": "DocType",
+  "name": "Module Level Callable Doc",
+  "module": "My App",
+  "autoname": "hash",
+  "fields": [
+    {"fieldname": "title", "fieldtype": "Data", "label": "Title"}
+  ]
+}
