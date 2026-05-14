@@ -1,8 +1,9 @@
+from . import __version__ as app_version
+
 app_name = "my_app"
 app_title = "My Custom App"
 app_publisher = "Test Company"
 app_description = "A test Frappe app with intentional issues for auditing"
-app_version = "0.1.0"
 
 # DocType event overrides
 doc_events = {
