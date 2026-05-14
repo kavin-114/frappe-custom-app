@@ -1,0 +1,38 @@
+{
+    "doctype": "DocType",
+    "module": "My App",
+    "name": "Confirmation of Accounts",
+    "naming_rule": "Expression (old style)",
+    "autoname": "ACCT-CONF-.####",
+    "is_submittable": 1,
+    "fields": [
+        {
+            "fieldname": "customer",
+            "fieldtype": "Link",
+            "label": "Customer",
+            "options": "Customer",
+            "reqd": 1
+        },
+        {
+            "fieldname": "fiscal_year",
+            "fieldtype": "Link",
+            "label": "Fiscal Year",
+            "options": "Fiscal Year",
+            "reqd": 1
+        },
+        {
+            "fieldname": "outstanding_amount",
+            "fieldtype": "Currency",
+            "label": "Outstanding Amount"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "Accounts User",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "submit": 1
+        }
+    ]
+}
