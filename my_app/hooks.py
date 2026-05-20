@@ -115,6 +115,10 @@ scheduler_events = {
         # through tasks/__init__.py. The shortened dotted path below lands on
         # __init__.py; resolver sees only ImportFrom and reports missing.
         "my_app.tasks.reexported_scheduled_task",
+        # Dead-code showcase — entry points for the negative cases. The
+        # positive cases in dead_code_showcase.py must NOT appear here.
+        "my_app.audit_fixtures.dead_code_showcase.caller_for_helper",
+        "my_app.audit_fixtures.dead_code_showcase_importer.run",
     ],
     "cron": {
         "0 */6 * * *": [
