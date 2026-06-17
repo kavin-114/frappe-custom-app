@@ -128,6 +128,42 @@ def imported_in_data_import_module():
 
 
 # ============================================================
+# MUST NOT FIRE — alive via enqueue-by-reference
+# ============================================================
+
+# `frappe.enqueue(fn, ...)` and `frappe.enqueue_doc(dt, name, fn, ...)` hand a
+# Python callable to the background worker *by reference* (not a dotted
+# string). The worker invokes it later, so the callable is reachable whenever
+# the enqueuing code is. Regression for the taskstream Work Item controller,
+# where `spawn_recurrence_batch` (enqueued from `after_insert`) was wrongly
+# flagged `unused-function`. See `reachability._CALLABLE_ARG_APIS`.
+
+class RecurrenceMaster(frappe.model.document.Document):
+    """Document subclass — `after_insert` is a lifecycle entry point.
+
+    Uses the fully-qualified base so this anchor adds no new import line and
+    therefore does not shift the line numbers the critical-section golden pins.
+    """
+
+    def after_insert(self):
+        # Enqueues the worker by reference (bare name), not a dotted string.
+        frappe.enqueue(spawn_recurrence_batch_ref, queue="long", timeout=1800)
+
+
+def spawn_recurrence_batch_ref():
+    """Passed by reference to `frappe.enqueue` above; invoked by the worker.
+    Must NOT fire `unused-function` — and its transitive helper must stay
+    alive too."""
+    return _recurrence_window_ref()
+
+
+def _recurrence_window_ref():
+    """Reached only via `spawn_recurrence_batch_ref`, which is itself reachable
+    only through the enqueue-by-reference edge. Must NOT fire."""
+    return 7
+
+
+# ============================================================
 # Transitive chain — reached only because hooks.py mentions
 # `caller_for_helper` via a separate entry point. Without that root,
 # this whole chain would go dark. Anchors the "transitive caller" path
