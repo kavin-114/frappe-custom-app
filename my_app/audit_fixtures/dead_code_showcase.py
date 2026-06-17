@@ -164,6 +164,34 @@ def _recurrence_window_ref():
 
 
 # ============================================================
+# MUST NOT FIRE — callee of a soft-alive (string-mentioned) function
+# ============================================================
+
+# `provision_dashboard` is alive only because its dotted path is mentioned as
+# a string below (a bench command, like the taskstream custom_html_block
+# setup). That soft-alive signal now propagates through the call graph, so its
+# private helper `_load_asset` — reached only by a direct call — must NOT fire
+# `unused-function`. Regression for taskstream `_read` / `_exec_guard`. See
+# `reachability.is_soft_reachable_fqn`.
+
+_BENCH_COMMANDS = [
+    "my_app.audit_fixtures.dead_code_showcase.provision_dashboard",
+]
+
+
+def provision_dashboard():
+    """Alive only via the string mention in `_BENCH_COMMANDS` above; reaches
+    `_load_asset` by a direct call."""
+    return _load_asset("dashboard.html")
+
+
+def _load_asset(filename):
+    """Reached only from `provision_dashboard` (itself alive only via a string
+    mention). Must NOT fire `unused-function`."""
+    return filename
+
+
+# ============================================================
 # Transitive chain — reached only because hooks.py mentions
 # `caller_for_helper` via a separate entry point. Without that root,
 # this whole chain would go dark. Anchors the "transitive caller" path
